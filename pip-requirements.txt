@@ -1,0 +1,3 @@
+tqdm
+unidecode
+compress_json
