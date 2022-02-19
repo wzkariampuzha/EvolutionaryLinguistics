@@ -1,7 +1,0 @@
-name: evol-ling
-dependencies:
-  - numpy
-  - pandas
-  - nltk
-  - matplotlib
-  - ipykernel
