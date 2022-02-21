@@ -22,9 +22,9 @@ to generate *\*_CLOSED_CLASSES.json* files.
     {unigram: {pos:'pos',
                max: max_usage,
                median_all: median_all,
-               median_in_use:median_in_use,
+               median_in_use: median_in_use,
                mean_all: mean_all,
-               mean_in_use:mean_in_use,
+               mean_in_use: mean_in_use,
                birth_years: [year1, year2, ...],
                death_years: [year1, year2, ...]}
             ...}
