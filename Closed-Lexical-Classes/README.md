@@ -11,7 +11,7 @@ Dynamic [evolutionary](https://www.nature.com/articles/nature06137) theories of 
 Manuscript is being finalized for submission. Key findings will be added here after paper is accepted to a journal. 
 
 ### Key notebooks
-- *1. Closed Classes Pre-processing.ipynb*: Inputs the raw Google 1-gram data (\*.gz), preprocesses it by filtering out unigrams which are not lexemes (exact parameters are described in the paper and found in the function *unigram_tests(unigram)*) as well as all unigrams which are not [annotated](https://dl.acm.org/doi/10.5555/2390470.2390499) with one of the closed lexical classes tags.
+- *1. Closed Classes Pre-processing.ipynb*: Inputs the raw Google 1-gram data (\*.gz), preprocesses it by filtering out unigrams which are not lexemes (exact parameters are described in the paper and found in the function *unigram_tests*) as well as all unigrams which are not [annotated](https://dl.acm.org/doi/10.5555/2390470.2390499) with one of the closed lexical classes tags.
 to generate *\*_CLOSED_CLASSES.json* files. 
 - *2. Closed Classes Pre-processing.ipynb*: Inputs the *\*_CLOSED_CLASSES.json* files, normalizes, smooths, and finds the birth and death years of each word as well as usage statistics. Generates *CLOSED_CLASSES_SORTABLE.json*
 - *3. Investigate the Closed Classes Data.ipynb*: Generates *ALL CLOSED CLASSES TOP 500s.json* and *ALL CLOSED CLASSES TOP 500s.csv*
