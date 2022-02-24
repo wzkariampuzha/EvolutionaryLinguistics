@@ -181,5 +181,5 @@ files = os.listdir(os.path.abspath(directory_absolute_path))
 for file_path in files:
     if '.gz' in file_path and not '.json' in file_path:
         ngram_dict = preprocess_ngrams(directory_absolute_path,file_path)
-        save_json(ngram_dict,directory,file_path)
+        save_json(ngram_dict,directory_absolute_path,file_path)
         del ngram_dict
