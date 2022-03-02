@@ -8,6 +8,8 @@
 
 import sys
 directory_absolute_path = sys.argv[1]
+if directory_absolute_path[-1] != '\\' or directory_absolute_path[-1] != '/':
+    directory_absolute_path+='/'
 
 import os
 import gzip

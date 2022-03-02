@@ -1,0 +1,19 @@
+python create_lexicon.py -p C:\Users\wzkar\Documents\GitHub\EvolutionaryLinguistics\Ngrams\amer_unigram_data\ -b 1801 -e 1850 -s 1
+python create_lexicon.py -p C:\Users\wzkar\Documents\GitHub\EvolutionaryLinguistics\Ngrams\amer_unigram_data\ -b 1851 -e 1900 -s 1
+python create_lexicon.py -p C:\Users\wzkar\Documents\GitHub\EvolutionaryLinguistics\Ngrams\amer_unigram_data\ -b 1901 -e 1950 -s 1
+python create_lexicon.py -p C:\Users\wzkar\Documents\GitHub\EvolutionaryLinguistics\Ngrams\amer_unigram_data\ -b 1951 -e 2000 -s 1
+
+python create_lexicon.py -p C:\Users\wzkar\Documents\GitHub\EvolutionaryLinguistics\Ngrams\brit_unigram_data\ -b 1801 -e 1850 -s 1
+python create_lexicon.py -p C:\Users\wzkar\Documents\GitHub\EvolutionaryLinguistics\Ngrams\brit_unigram_data\ -b 1851 -e 1900 -s 1
+python create_lexicon.py -p C:\Users\wzkar\Documents\GitHub\EvolutionaryLinguistics\Ngrams\brit_unigram_data\ -b 1901 -e 1950 -s 1
+python create_lexicon.py -p C:\Users\wzkar\Documents\GitHub\EvolutionaryLinguistics\Ngrams\brit_unigram_data\ -b 1951 -e 2000 -s 1
+
+python create_lexicon.py -p C:\Users\wzkar\Documents\GitHub\EvolutionaryLinguistics\Ngrams\amer_unigram_data\ -b 1799 -e 1851 -s 3
+python create_lexicon.py -p C:\Users\wzkar\Documents\GitHub\EvolutionaryLinguistics\Ngrams\amer_unigram_data\ -b 1849 -e 1901 -s 3
+python create_lexicon.py -p C:\Users\wzkar\Documents\GitHub\EvolutionaryLinguistics\Ngrams\amer_unigram_data\ -b 1899 -e 1951 -s 3
+python create_lexicon.py -p C:\Users\wzkar\Documents\GitHub\EvolutionaryLinguistics\Ngrams\amer_unigram_data\ -b 1949 -e 2001 -s 3
+
+python create_lexicon.py -p C:\Users\wzkar\Documents\GitHub\EvolutionaryLinguistics\Ngrams\brit_unigram_data\ -b 1799 -e 1851 -s 3
+python create_lexicon.py -p C:\Users\wzkar\Documents\GitHub\EvolutionaryLinguistics\Ngrams\brit_unigram_data\ -b 1849 -e 1901 -s 3
+python create_lexicon.py -p C:\Users\wzkar\Documents\GitHub\EvolutionaryLinguistics\Ngrams\brit_unigram_data\ -b 1899 -e 1951 -s 3
+python create_lexicon.py -p C:\Users\wzkar\Documents\GitHub\EvolutionaryLinguistics\Ngrams\brit_unigram_data\ -b 1949 -e 2001 -s 3
