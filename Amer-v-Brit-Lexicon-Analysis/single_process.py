@@ -1,11 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# # Google Ngrams Analysis
-# ## An Evolutionary Investigation
-# 
-# The purpose of this is to filter through the entire dataset without limiting years. It will create \*\-COMPLETE.json files. It can be used to find the size of the lexicon.
-
 import os
 import gzip
 import numpy as np
@@ -22,31 +14,6 @@ from unidecode import unidecode
 import re
 #For the Google POS tagging mapping
 underscore = re.compile('_{1}')
-
-
-# ### [NLTK POS Lemmatizer](https://www.nltk.org/_modules/nltk/stem/wordnet.html)
-# 
-# The Part Of Speech tag. Valid options are `"n"` for nouns,
-#             `"v"` for verbs, `"a"` for adjectives, `"r"` for adverbs and `"s"`
-#             for [satellite adjectives](https://stackoverflow.com/questions/18817396/what-part-of-speech-does-s-stand-for-in-wordnet-synsets).  
-#   
-#   Syntax:
-# `lemmatizer.lemmatize(word)`
-
-# ### [Google Tags](https://books.google.com/ngrams/info)
-# These tags can either stand alone (\_PRON\_) or can be appended to a word (she_PRON)
-# - _NOUN_		
-# - _VERB_	
-# - _ADJ_	adjective
-# - _ADV_	adverb
-# - _PRON_	pronoun
-# - _DET_	determiner or article
-# - _ADP_	an adposition: either a preposition or a postposition
-# - _NUM_	numeral
-# - _CONJ_	conjunction
-# - _PRT_	particle
-
-# Define sets which are going to be used in the unigram tests
 
 import string
 PUNCTUATION = set(char for char in string.punctuation).union({'“','”'})
@@ -70,8 +37,9 @@ def open_gzip(directory,file_path):
     with gzip.open(directory+file_path,'r') as f_in:
         for line in f_in:
             yield line.decode('utf8').strip()
-
+            
 def save_pickle(ngram_dict,directory,file_path):
+    
     output = file_path[:-3]+'-preprocessed.pickle'
     if len(ngram_dict)>0:
         with open(directory+output, 'wb') as f_out:
@@ -79,7 +47,7 @@ def save_pickle(ngram_dict,directory,file_path):
         print('SAVED: ',output,len(ngram_dict))
     else:
         print('unigram dict empty',output)
-
+        
 def csv2tuple(string):
     year,match_count,volume_count = tuple(string.split(','))
     return np.int8(year),np.int32(match_count),np.int16(volume_count)
@@ -163,20 +131,10 @@ def preprocess_ngrams(directory,file_path):
             else:
                 ngram_dict[unigram] = records
     
-    return ngram_dict
-
+    #Save as Pickle
+    save_pickle(ngram_dict,directory,file_path)
+    
 if __name__=='__main__':
-    import sys
-
-    directory_absolute_path = sys.argv[1]
-    if directory_absolute_path[-1] != '\\' or directory_absolute_path[-1] != '/':
-        directory_absolute_path += '/'
-
-    #Run from command line
-    files = os.listdir(os.path.abspath(directory_absolute_path))
-    for file_path in files:
-        if '.gz' in file_path and not '.json' in file_path:
-            ngram_dict = preprocess_ngrams(directory_absolute_path, file_path)
-            #Save as Pickle
-            save_pickle(ngram_dict,directory_absolute_path,file_path)
-            del ngram_dict
+    directory = '../Ngrams/brit_unigram_data/'
+    file_path = '1-00002-of-00004.gz'
+    preprocess_ngrams(directory,file_path)

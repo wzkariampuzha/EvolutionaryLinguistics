@@ -6,10 +6,14 @@
 # 
 # The purpose of this is to filter through the entire dataset without limiting years. It will create \*\-COMPLETE.json files. It can be used to find the size of the lexicon.
 
+import sys
+directory_absolute_path = sys.argv[1]
+if directory_absolute_path[-1] != '\\' or directory_absolute_path[-1] != '/':
+    directory_absolute_path+='/'
+
 import os
 import gzip
-import numpy as np
-import pickle
+import json
 #for progress bars
 from tqdm import tqdm
 
@@ -50,8 +54,6 @@ underscore = re.compile('_{1}')
 
 import string
 PUNCTUATION = set(char for char in string.punctuation).union({'“','”'})
-#ALPHABET = set(string.ascii_letters)
-
 DIGITS = set(string.digits)
 VOWELS = set("aeiouyAEIOUY")
 #Excluding '_' (underscore) from DASHES precludes the tagged 1grams "_NOUN", add it to also include the tagged 1grams
@@ -60,29 +62,24 @@ PUNCTUATION.difference_update(DASHES)
 STOPS = PUNCTUATION.union(DIGITS)
 #GOOGLE_TAGS = {'_NOUN','_VERB','_ADJ','_ADV','_PRON','_DET','_ADP','_NUM','_CONJ','_PRT'}
 
-#maps Google pos_tag to Wordnet pos_tag
-POS_mapper = {'NOUN':'n',
-              'VERB':'v',
-              'ADJ':'a',
-              'ADV':'v'}
-
 def open_gzip(directory,file_path):
     with gzip.open(directory+file_path,'r') as f_in:
-        for line in f_in:
-            yield line.decode('utf8').strip()
+        rows = [x.decode('utf8').strip() for x in f_in.readlines()]
+    return rows
 
-def save_pickle(ngram_dict,directory,file_path):
-    output = file_path[:-3]+'-preprocessed.pickle'
+def save_json(ngram_dict,directory,file_path):
+    output = file_path[:-3]+'-COMPLETE.json'
     if len(ngram_dict)>0:
-        with open(directory+output, 'wb') as f_out:
-            pickle.dump(ngram_dict, f_out)
+        with open(directory+output, 'w') as f_out:
+            json.dump(ngram_dict, f_out)
         print('SAVED: ',output,len(ngram_dict))
     else:
         print('unigram dict empty',output)
 
 def csv2tuple(string):
     year,match_count,volume_count = tuple(string.split(','))
-    return np.int8(year),np.int32(match_count),np.int16(volume_count)
+    return int(year),int(match_count),int(volume_count)
+
 
 def unigram_tests(unigram):
     #Exclude words with more than one underscore, can make this != to only include tagged words
@@ -115,8 +112,22 @@ def unigram_tests(unigram):
     else:
         return True
 
+#maps Google pos_tag to Wordnet pos_tag
+def POS_mapper(pos_tag):
+    if pos_tag == 'NOUN':
+        return "n"
+    if pos_tag == 'VERB':
+        return "v"
+    if pos_tag == 'ADJ':
+        return "a"
+    if pos_tag == 'ADV':
+        return "r"
+    else:
+        return "n" #Default for wordnet lemmatizer
+
 def preprocess_ngrams(directory,file_path):
     
+    #rows = open_gzip(directory,file_path)
     ngram_dict = dict()
 
     #This implementation uses {1gram:{year:match_count ...} ...}
@@ -128,15 +139,17 @@ def preprocess_ngrams(directory,file_path):
         unigram = columns[0]
         #If it passes the word tests continue parsing and lemmatizing the unigram
         if unigram_tests(unigram):
+            pos = "n" #Default for wordnet lemmatizer
             word_tag = underscore.split(unigram) # list of [word,tag]
             
-            pos = "n" #Default for wordnet lemmatizer
-            if word_tag[1] in POS_mapper.keys():
-                pos = POS_mapper[word_tag[1]]
+            #maps Google tag to Wordnet tag
+            pos = POS_mapper(word_tag[1])
             
-            #word_tag[0] removes the tag before processing unigram string
+            #Removes the tag before processing unigram string
+            unigram = word_tag[0]
+            
             #Lemmatize based on POS
-            unigram = lemmatizer.lemmatize(word_tag[0].lower().strip(),pos)
+            unigram = lemmatizer.lemmatize(unigram.lower().strip(),pos)
             
             #Adds the tag back onto the unigram
             unigram+='_'+word_tag[1]
@@ -165,18 +178,10 @@ def preprocess_ngrams(directory,file_path):
     
     return ngram_dict
 
-if __name__=='__main__':
-    import sys
-
-    directory_absolute_path = sys.argv[1]
-    if directory_absolute_path[-1] != '\\' or directory_absolute_path[-1] != '/':
-        directory_absolute_path += '/'
-
-    #Run from command line
-    files = os.listdir(os.path.abspath(directory_absolute_path))
-    for file_path in files:
-        if '.gz' in file_path and not '.json' in file_path:
-            ngram_dict = preprocess_ngrams(directory_absolute_path, file_path)
-            #Save as Pickle
-            save_pickle(ngram_dict,directory_absolute_path,file_path)
-            del ngram_dict
+#Run from command line
+files = os.listdir(os.path.abspath(directory_absolute_path))
+for file_path in files:
+    if '.gz' in file_path and not '.json' in file_path:
+        ngram_dict = preprocess_ngrams(directory_absolute_path,file_path)
+        save_json(ngram_dict,directory_absolute_path,file_path)
+        del ngram_dict
