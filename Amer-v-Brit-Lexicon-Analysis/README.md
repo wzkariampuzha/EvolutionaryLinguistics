@@ -11,6 +11,10 @@ Requirements:
 Derivation of Normalized and Sample-Size Adjusted $\chi^2$ Test
 
 $$\chi^2 = \sum \frac{(O_i-E_i)^2}{E_i}$$
+<img src="https://render.githubusercontent.com/render/math?math={\chi^2 = \sum \frac{(O_i-E_i)^2}{E_i}}#gh-light-mode-only">
+<img src="https://render.githubusercontent.com/render/math?math={\color{white}\chi^2 = \sum \frac{(O_i-E_i)^2}{E_i}}#gh-dark-mode-only">
+
+
 We will consider consider British English to be the parent language (containing the expected distribution) under the null hypothesis that there has been no divergence. Thus,
 $A_i$ = frequency of the American lexeme
 $B_i$ = frequency of British lexeme.
