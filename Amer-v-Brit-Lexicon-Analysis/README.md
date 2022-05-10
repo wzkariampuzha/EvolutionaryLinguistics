@@ -2,13 +2,9 @@
 ## William Kariampuzha
 
 ### Purpose
-Do a divergence (or convergence?) analysis of the American and British lexicon sets.
+Do a divergence (or convergence) analysis of the American and British lexicon sets.
 
-Requirements:
-1. Rewrite and optimize the preprocessing algorithm
-2. 
-
-Derivation of Normalized and Sample-Size Adjusted $\chi^2$ Test
+### Derivation of Normalized and Sample-Size Adjusted $\chi^2$ Test
 
 <img src="https://render.githubusercontent.com/render/math?math={\chi^2 = \sum \frac{(O_i-E_i)^2}{E_i}}#gh-light-mode-only">
 <img src="https://render.githubusercontent.com/render/math?math={\color{white}\chi^2 = \sum \frac{(O_i-E_i)^2}{E_i}}#gh-dark-mode-only">
